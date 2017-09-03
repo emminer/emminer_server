@@ -1,0 +1,39 @@
+<table class="uk-table uk-table-divider uk-table-small">
+    <tbody>
+        <tr>
+            <td>Hashrates</td>
+            <td>{{miner.hashrate}}</td>
+        </tr>
+        <tr>
+            <td>Workers</td>
+            <td>{{miner.workers.length}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+  {{#each workers}}
+    <div>
+        <div class="uk-card uk-card-small uk-card-primary uk-card-body">
+            <h3 class="uk-card-title">{{name}}</h3>
+            <table class="uk-table uk-table-divider uk-table-small">
+                <thead>
+                  <tr>
+                    <th>CS</th>
+                    <th>HS</th>
+                    <th>LS</th>
+                    <th>LN</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{cards}}</td>
+                        <td>{{hashrate}}</td>
+                        <td>{{lastShare}}</td>
+                        <td>{{lastSeen}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{/each}}
+</div>
