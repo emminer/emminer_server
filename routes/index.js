@@ -48,7 +48,7 @@ function getWorkerStyle(worker) {
   let lastShareDiff = now.diff(lastShare, 'minutes');
   if (lastSeenDiff >= 5) {
     return 'uk-label-danger';
-  } else if (lastShareDiff >= 5) {
+  } else if (isNaN(lastShareDiff) || lastShareDiff >= 5) {
     return 'uk-label-warning';
   } else {
     return 'uk-label-success';
