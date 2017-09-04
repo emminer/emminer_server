@@ -38,6 +38,9 @@ router.get('/miners/:id', function(req, res, next) {
       }
     })
   }
+  if（miner.hashrate > 0) {
+    miner.hashrate = miner.hashrate.toFixed(2);
+  }
   res.render('miner_overview', { title: 'Overview', miner, workers: workerSummaries });
 });
 
@@ -46,8 +49,6 @@ function getWorkerStyle(worker) {
   const { lastSeen, lastShare } = worker;
   let lastSeenDiff = now.diff(lastSeen, 'minutes');
   let lastShareDiff = now.diff(lastShare, 'minutes');
-  console.log(lastSeenDiff);
-  console.log(lastShareDiff);
   if (lastSeenDiff >= 5) {
     return 'uk-label-danger';
   } else if (!lastShare || isNaN(lastShareDiff) || lastShareDiff >= 5) {
