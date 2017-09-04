@@ -9,7 +9,9 @@ var index = require('./routes/index');
 var api = require('./routes/api');
 
 var app = express();
-
+var hbs = require('hbs');
+var helpers = require('handlebars-helpers');
+helpers.comparison({handlebars: hbs.handlebars});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

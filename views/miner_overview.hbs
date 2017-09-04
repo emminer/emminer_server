@@ -13,8 +13,8 @@
 <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
   {{#each workers}}
     <div>
-        <div class="uk-card uk-card-small uk-card-primary uk-card-body">
-            <h3 class="uk-card-title">{{name}}</h3>
+        <div class="uk-card uk-card-small uk-card-default uk-card-body">
+            <h3 class="uk-card-title"><span class="uk-label uk-text-large {{styles.worker}}">{{name}}</span></h3>
             <table class="uk-table uk-table-divider uk-table-small">
                 <thead>
                   <tr>
@@ -33,7 +33,50 @@
                     </tr>
                 </tbody>
             </table>
+            <hr>
+            <table class="uk-table uk-table-divider uk-table-small">
+                <thead>
+                  <tr>
+                    <th>i</th>
+                    <th>hs</th>
+                    <th>temp</th>
+                    <th>fan</th>
+                    <th>u</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each gpus}}
+                    <tr>
+                        <td>{{index}}</td>
+                        <td>{{hashrate}}</td>
+                        <td>
+                          {{#gte temp 80}}
+                          <span class="uk-text-danger">{{temp}}C</span>
+                          {{else}}
+                          {{#gte temp 70}}
+                          <span class="uk-text-warning">{{temp}}C</span>
+                          {{else}}
+                          <span>{{temp}}C</span>
+                          {{/gte}}
+                          {{/gte}}
+                        </td>
+                        <td>
+                          {{#gte fan 80}}
+                          <span class="uk-text-danger">{{fan}}%</span>
+                          {{else}}
+                          {{#gte fan 70}}
+                          <span class="uk-text-warning">{{fan}}%</span>
+                          {{else}}
+                          <span>{{fan}}%</span>
+                          {{/gte}}
+                          {{/gte}}
+                        </td>
+                        <td>{{utilization}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
-    {{/each}}
+  {{/each}}
 </div>
