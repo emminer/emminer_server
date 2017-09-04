@@ -38,7 +38,7 @@ router.get('/miners/:id', function(req, res, next) {
       }
     })
   }
-  if（miner.hashrate > 0) {
+  if (miner.hashrate > 0) {
     miner.hashrate = miner.hashrate.toFixed(2);
   }
   res.render('miner_overview', { title: 'Overview', miner, workers: workerSummaries });
