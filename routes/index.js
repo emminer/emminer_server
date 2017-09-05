@@ -31,6 +31,7 @@ router.get('/miners/:id', function(req, res, next) {
       cards: worker.gpus ? worker.gpus.length : 0,
       gpus: worker.gpus,
       hashrate: worker.hashrate || 0,
+      startedAt: duration(worker.startedAt, now),
       lastSeen: duration(worker.lastSeen, now),
       lastShare: worker.lastShare ? duration(worker.lastShare, now) : '-',
       styles: {
