@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 const prettyMs = require('pretty-ms');
-let { getMiners } = require('../lib/miners');
+let { getMiners, getWorkerStatus } = require('../lib/miners');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -45,16 +45,15 @@ router.get('/miners/:id', function(req, res, next) {
 });
 
 function getWorkerStyle(worker) {
-  const now = moment();
-  const { lastSeen, lastShare } = worker;
-  let lastSeenDiff = now.diff(lastSeen, 'minutes');
-  let lastShareDiff = now.diff(lastShare, 'minutes');
-  if (lastSeenDiff >= 5) {
+  const status = getWorkerStatus(worker);
+  if (status === 'dead' || status === 'disconnected') {
     return 'uk-label-danger';
-  } else if (!lastShare || isNaN(lastShareDiff) || lastShareDiff >= 5) {
+  } else if (status === 'stopped') {
     return 'uk-label-warning';
-  } else {
+  } else if (status === 'ok') {
     return 'uk-label-success';
+  } else {
+    return '';
   }
 }
 
