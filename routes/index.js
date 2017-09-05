@@ -48,7 +48,7 @@ function getWorkerStyle(worker) {
   const status = getWorkerStatus(worker);
   if (status === 'dead' || status === 'disconnected') {
     return 'uk-label-danger';
-  } else if (status === 'stopped') {
+  } else if (status === 'noshare') {
     return 'uk-label-warning';
   } else if (status === 'ok') {
     return 'uk-label-success';
