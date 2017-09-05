@@ -18,7 +18,7 @@ router.post('/events', function(req, res, next) {
       hashrate,
       share,
     });
-  } else if (action === 'regular') {
+  } else if (action === 'regular' || action === 'start') {
     let gpus = req.body.payload;
     newEvent({
       token,
