@@ -57,6 +57,9 @@ function getRigStyle(rig) {
 }
 
 function duration(time, now) {
+  if (!time) {
+    return '-';
+  }
   let ms = moment(now).diff(time, 'milliseconds');
   if (ms < 1000) {
     return '~1s';
