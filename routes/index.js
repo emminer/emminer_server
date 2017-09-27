@@ -2,18 +2,18 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 const prettyMs = require('pretty-ms');
-let { getMiners, getWorkerStatus } = require('../lib/miners');
+let { FARMS, getRigStatus } = require('../lib/farms');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Express Mining Farm' });
 });
 
-router.get('/miners/:id', function(req, res, next) {
+router.get('/farms/:id', function(req, res, next) {
   let id = req.params.id;
-  let miners = (getMiners() || []).filter(m => m.token === id);
-  let miner = miners.length ? miners[0] : null;
-  if (!miner) {
+  let farms = (FARMS || []).filter(m => m.token === id);
+  let farm = farms.length ? farms[0] : null;
+  if (!farm) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -21,35 +21,33 @@ router.get('/miners/:id', function(req, res, next) {
   }
 
   const now = moment();
-  const workers = miner.workers || [];
-  miner.hashrate = 0;
-  const workerSummaries = [];
-  for (let worker of workers) {
-    miner.hashrate += (worker.hashrate || 0);
-    workerSummaries.push({
-      name: worker.name,
-      cards: worker.gpus ? worker.gpus.length : 0,
-      gpus: worker.gpus,
-      hashrate: worker.hashrate || 0,
-      startedAt: duration(worker.startedAt, now),
-      lastSeen: duration(worker.lastSeen, now),
-      lastShare: worker.lastShare ? duration(worker.lastShare, now) : '-',
+  const rigs = farm.rigs || [];
+
+  const rigSummaries = [];
+  for (let rig of rigs) {
+    rigSummaries.push({
+      name: rig.name,
+      coin: rig.coin,
+      cards: rig.gpu ? rig.gpu.length : 0,
+      gpus: rig.gpu,
+      unit: rig.hashrate ? rig.hashrate.unit : 'HS',
+      hashrate: rig.hashrate ? rig.hashrate.current : 0,
+      startedAt: duration(rig.startedAt, now),
+      lastSeen: duration(rig.lastSeen, now),
       styles: {
-        worker: getWorkerStyle(worker)
+        rig: getRigStyle(rig)
       }
-    })
+    });
   }
-  if (miner.hashrate > 0) {
-    miner.hashrate = miner.hashrate.toFixed(2);
-  }
-  res.render('miner_overview', { title: 'Overview', miner, workers: workerSummaries });
+
+  res.render('farm_overview', { title: '东山煤矿', farm, rigs: rigSummaries });
 });
 
-function getWorkerStyle(worker) {
-  const status = getWorkerStatus(worker);
-  if (status === 'dead' || status === 'disconnected') {
+function getRigStyle(rig) {
+  const status = getRigStatus(rig);
+  if (status === 'dead') {
     return 'uk-label-danger';
-  } else if (status === 'noshare') {
+  } else if (status === 'starting') {
     return 'uk-label-warning';
   } else if (status === 'ok') {
     return 'uk-label-success';
@@ -60,6 +58,9 @@ function getWorkerStyle(worker) {
 
 function duration(time, now) {
   let ms = moment(now).diff(time, 'milliseconds');
+  if (ms < 1000) {
+    return '~1s';
+  }
   return prettyMs(ms, {compact: true});
 }
 

@@ -1,36 +1,32 @@
 <table class="uk-table uk-table-divider uk-table-small">
     <tbody>
         <tr>
-            <td>Hashrates</td>
-            <td>{{miner.hashrate}}</td>
-        </tr>
-        <tr>
-            <td>Workers</td>
-            <td>{{miner.workers.length}}</td>
+            <td>Rigs</td>
+            <td>{{rigs.length}}</td>
         </tr>
     </tbody>
 </table>
 <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
-  {{#each workers}}
+  {{#each rigs}}
     <div>
         <div class="uk-card uk-card-small uk-card-default uk-card-body">
-            <h3 class="uk-card-title"><span class="uk-label uk-text-large {{styles.worker}}">{{name}}</span></h3>
+            <h3 class="uk-card-title"><span class="uk-label uk-text-large {{styles.rig}}">{{name}}</span></h3>
             <table class="uk-table uk-table-divider uk-table-small">
                 <thead>
                   <tr>
                     <th>CS</th>
-                    <th>HS</th>
+                    <th>coin</th>
+                    <th>{{unit}}</th>
                     <th>SA</th>
-                    <th>LS</th>
                     <th>LN</th>
                   </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{cards}}</td>
+                        <td>{{coin}}</td>
                         <td>{{hashrate}}</td>
                         <td>{{startedAt}}</td>
-                        <td>{{lastShare}}</td>
                         <td>{{lastSeen}}</td>
                     </tr>
                 </tbody>
@@ -40,17 +36,15 @@
                 <thead>
                   <tr>
                     <th>i</th>
-                    <th>hs</th>
                     <th>temp</th>
                     <th>fan</th>
                     <th>u</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {{#each gpus}}
+                  {{#each gpu}}
                     <tr>
                         <td>{{index}}</td>
-                        <td>{{hashrate}}</td>
                         <td>
                           {{#gte temp 80}}
                           <span class="uk-text-danger">{{temp}}C</span>
@@ -73,7 +67,7 @@
                           {{/gte}}
                           {{/gte}}
                         </td>
-                        <td>{{utilization}}</td>
+                        <td>{{util}}</td>
                     </tr>
                   {{/each}}
                 </tbody>

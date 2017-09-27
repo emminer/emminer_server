@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('dotenv').config();
 
-const job = require('./lib/monitor');
-job.start();
+// const job = require('./lib/monitor');
+// job.start();
 
 var index = require('./routes/index');
 var api = require('./routes/api');

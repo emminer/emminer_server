@@ -4,17 +4,18 @@ module.exports = {
   smtp_user: process.env.SMTP_USER,
   smtp_pass: process.env.SMTP_PASS,
   email_from: process.env.EMAIL_FROM,
-  legal_miners: parseLegalMiners(process.env.LEGAL_MINERS),
+  FARMS: parseLegalFarms(process.env.LEGAL_FARMS),
 };
 
-function parseLegalMiners(data) {
+function parseLegalFarms(data) {
   if (!data) {
     return [];
   }
-  return data.split(',').map(miner => {
+  return data.split(',').map(farm => {
     return {
-      token: miner.split('|')[0],
-      email: miner.split('|')[1],
+      token: farm.split('|')[0],
+      email: farm.split('|')[1],
+      rigs: [],
     };
   });
 }
