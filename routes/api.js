@@ -7,7 +7,7 @@ router.post('/farms/status', function(req, res, next) {
   let token = req.get('FARM_TOKEN');
   var result = reportStatus(token, req.body);
   if (result.code != 200) {
-    return res.status(result.status).send({msg: result.msg});
+    return res.status(result.code).send({msg: result.msg});
   }
 
   res.json({msg: 'OK'});
