@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 const prettyMs = require('pretty-ms');
+const _ = require('lodash');
 let { FARMS, getRigStatus } = require('../lib/farms');
 
 /* GET home page. */
@@ -21,7 +22,17 @@ router.get('/farms/:id', function(req, res, next) {
   }
 
   const now = moment();
+  farm.coins = [];
   const rigs = farm.rigs || [];
+  let coins = _.groupBy(farm.rigs, 'coin');
+  Object.keys(coins).forEach(coinName => {
+    let rigsByCoin = coins[coinName];
+    let coinSummary = {
+      coin: coinName,
+      hashrate: rigsByCoin.reduce((a, c) => a + (c.hashrate ? (c.hashrate.current || 0) : 0), 0),
+    };
+    farm.coins.push(coinSummary);
+  });
 
   const rigSummaries = [];
   for (let rig of rigs) {
