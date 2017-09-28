@@ -1,8 +1,18 @@
 <table class="uk-table uk-table-divider uk-table-small">
+    <thead>
+      <tr>
+        <th>rigs</th>
+        {{#each farm.coins}}
+        <th>{{coin}}</th>
+        {{/each}}
+      </tr>
+    </thead>
     <tbody>
         <tr>
-            <td>Rigs</td>
-            <td>{{rigs.length}}</td>
+            <td>{{rigs.length}}/td>
+            {{#each farm.coins}}
+            <th>{{hashrate}}</th>
+            {{/each}}
         </tr>
     </tbody>
 </table>

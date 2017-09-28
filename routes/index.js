@@ -29,7 +29,8 @@ router.get('/farms/:id', function(req, res, next) {
     let rigsByCoin = coins[coinName];
     let coinSummary = {
       coin: coinName,
-      hashrate: rigsByCoin.reduce((a, c) => a + (c.hashrate ? (c.hashrate.current || 0) : 0), 0),
+      hashrate: rigsByCoin.reduce((a, c) => a + +(c.hashrate ? (c.hashrate.current || 0) : 0), 0)
+      + rigsByCoin[0].hashrate ? rigsByCoin[0].hashrate.unit : '',
     };
     farm.coins.push(coinSummary);
   });
