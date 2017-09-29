@@ -30,7 +30,7 @@ router.get('/farms/:id', function(req, res, next) {
     let totalHashrate = rigsByCoin.reduce((a, c) => {
       let hs = c.hashrate ? parseFloat(c.hashrate.current) : 0;
       return a + hs;
-    }, 0);
+    }, 0).toFixed(1);
     let unit = rigsByCoin[0].hashrate ? rigsByCoin[0].hashrate.unit : '';
     let coinSummary = {
       coin: coinName,
