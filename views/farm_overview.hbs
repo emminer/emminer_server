@@ -3,6 +3,13 @@
   <span class="uk-label uk-label-danger">DEAD</span>
 </div>
 {{/if}}
+{{#if farm.lastSeen}}
+{{else}}
+<div>
+  <span class="uk-label uk-label-warning">IDLE</span>
+</div>
+{{/if}}
+
 <table class="uk-table uk-table-divider uk-table-small">
     <thead>
       <tr>
