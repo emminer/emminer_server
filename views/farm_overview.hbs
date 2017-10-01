@@ -23,7 +23,12 @@
         <tr>
             <td>{{rigs.length}}</td>
             {{#each farm.coins}}
-            <th>{{hashrate}}</th>
+            <td>
+              {{hashrateStr}}
+              {{#if profit}}
+              | ¥{{profit}}／DAY
+              {{/if}}
+            </td>
             {{/each}}
         </tr>
     </tbody>

@@ -22,22 +22,7 @@ router.get('/farms/:id', function(req, res, next) {
   }
 
   const now = moment();
-  farm.coins = [];
   const rigs = farm.rigs || [];
-  let coins = _.groupBy(farm.rigs, 'coin');
-  Object.keys(coins).forEach(coinName => {
-    let rigsByCoin = coins[coinName];
-    let totalHashrate = rigsByCoin.reduce((a, c) => {
-      let hs = c.hashrate ? parseFloat(c.hashrate.current) : 0;
-      return a + hs;
-    }, 0).toFixed(1);
-    let unit = rigsByCoin[0].hashrate ? rigsByCoin[0].hashrate.unit : '';
-    let coinSummary = {
-      coin: coinName,
-      hashrate: `${totalHashrate}${unit}`,
-    };
-    farm.coins.push(coinSummary);
-  });
 
   const rigSummaries = [];
   for (let rig of rigs) {
