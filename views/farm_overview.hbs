@@ -17,6 +17,7 @@
         {{#each farm.coins}}
         <th>{{coin}}</th>
         {{/each}}
+        <th>total</th>
       </tr>
     </thead>
     <tbody>
@@ -26,10 +27,14 @@
             <td>
               {{hashrateStr}}
               {{#if profit}}
-              <br>¥{{profit}}/DAY
+              <br>¥{{profit}}/D
               {{/if}}
             </td>
             {{/each}}
+            <td>
+              -<br>
+              {{#totalProfits farm.coins}}/D
+            </td>
         </tr>
     </tbody>
 </table>

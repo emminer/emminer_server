@@ -16,6 +16,7 @@ var app = express();
 var hbs = require('hbs');
 var helpers = require('handlebars-helpers');
 helpers.comparison({handlebars: hbs.handlebars});
+require('./lib/hbs_helpers')(hbs);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
