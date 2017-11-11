@@ -13,28 +13,26 @@
 <table class="uk-table uk-table-divider uk-table-small">
     <thead>
       <tr>
-        <th>rigs</th>
+        <th>total</th>
         {{#each farm.coins}}
         <th>{{coin}}</th>
         {{/each}}
-        <th>total</th>
       </tr>
     </thead>
     <tbody>
         <tr>
-            <td>{{rigs.length}}</td>
-            {{#each farm.coins}}
-            <td>
-              {{hashrateStr}}
-              {{#if profit}}
-              <br>¥{{profit}}/D
-              {{/if}}
-            </td>
-            {{/each}}
-            <td>
-              -<br>
-              ¥{{totalProfits farm.coins}}/D
-            </td>
+          <td>
+            {{rigs.length}} rigs<br>
+            ¥{{totalProfits farm.coins}}/D
+          </td>
+          {{#each farm.coins}}
+          <td>
+            {{hashrateStr}}
+            {{#if profit}}
+            <br>¥{{profit}}/D
+            {{/if}}
+          </td>
+          {{/each}}
         </tr>
     </tbody>
 </table>
