@@ -4,7 +4,8 @@ module.exports = {
   smtp_user: process.env.SMTP_USER,
   smtp_pass: process.env.SMTP_PASS,
   email_from: process.env.EMAIL_FROM,
-  USD2CNY: process.env.USD2CNY || 6.5,
+  USD2CNY: parseFloat(process.env.USD2CNY) || 6.5,
+  CNY_PER_KWH: parseFloat(process.env.CNY_PER_KWH) || 0.675,
   FARMS: parseLegalFarms(process.env.LEGAL_FARMS),
 };
 
