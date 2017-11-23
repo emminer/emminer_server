@@ -16,6 +16,7 @@ function parseLegalFarms(data) {
     return {
       token: farm.split('|')[0],
       email: farm.split('|')[1],
+      alias: farm.split('|')[2],
       rigs: [],
     };
   });
